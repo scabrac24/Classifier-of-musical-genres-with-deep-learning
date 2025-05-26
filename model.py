@@ -11,6 +11,9 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras import regularizers
 from tensorflow.keras.callbacks import EarlyStopping, LearningRateScheduler
 import matplotlib.pyplot as plt
+import joblib
+
+
 
 # 1. Carga y preparación de datos
 train_df = pd.read_csv("Data/train_data_final.csv")
@@ -140,3 +143,7 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
+
+joblib.dump(scaler, 'scaler.pkl')
+joblib.dump(label_encoder, 'label_encoder.pkl')
+model.save('modelo_musica.h5')
