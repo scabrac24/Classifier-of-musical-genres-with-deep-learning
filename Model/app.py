@@ -10,6 +10,9 @@ import joblib
 import pandas as pd
 import matplotlib.pyplot as plt
 import uuid
+import soundfile as sf 
+
+
 
 # Define rutas absolutas para templates y static
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -29,13 +32,28 @@ model = tf.keras.models.load_model("modelo_musica.h5")
 scaler = joblib.load("scaler.pkl")
 label_encoder = joblib.load("label_encoder.pkl")
 
-# Función para recortar audio a 3 segundos
-def crop_audio_to_3_seconds(file_path):
+
+def crop_audio_to_3_seconds(file_path, skip_start_sec=5.0):
     y, sr = librosa.load(file_path, sr=None)
-    duration = librosa.get_duration(y=y, sr=sr)
-    if duration > 3.0:
-        y = y[:int(sr * 3)]
-        librosa.output.write_wav(file_path, y, sr)  # sobrescribe el archivo con versión recortada
+    total_samples = len(y)
+    total_duration = librosa.get_duration(y=y, sr=sr)
+
+    # Si el audio es muy corto, tomar los últimos 3 segundos o lo que haya
+    if total_duration <= 3.0:
+        return  # No hace falta recortar
+
+    start_sample = int(skip_start_sec * sr)
+    end_sample = start_sample + int(3 * sr)
+
+    # Si el final se pasa del total, recortar desde el final
+    if end_sample > total_samples:
+        end_sample = total_samples
+        start_sample = max(0, end_sample - int(3 * sr))
+
+    y_crop = y[start_sample:end_sample]
+    sf.write(file_path, y_crop, sr)
+ 
+
 
 # Generar espectrograma y guardarlo como imagen
 def generate_spectrogram(file_path, output_path):
@@ -117,17 +135,40 @@ def predict():
     file.save(file_path)
 
     try:
+        # Recortar a 3 segundos
+        crop_audio_to_3_seconds(file_path)
+
+        # Extraer características y predecir
         features = extract_features(file_path)
         scaled = scaler.transform(features)
-        prediction = model.predict(scaled)
-        predicted_label = label_encoder.inverse_transform([np.argmax(prediction)])
-        return render_template('index.html', genre=predicted_label[0],
-                               spectrogram_url=f'/static/spectrograms/{filename}.png')
+        prediction = model.predict(scaled)[0]  # primera fila del batch
+
+        max_prob_index = np.argmax(prediction)
+        predicted_label = label_encoder.inverse_transform([max_prob_index])[0]
+        confidence = float(prediction[max_prob_index]) * 100
+        error = 100 - confidence
+
+        # Generar espectrograma
+        spectrogram_filename = f"{uuid.uuid4().hex}.png"
+        spectrogram_path = os.path.join(SPECTROGRAM_FOLDER, spectrogram_filename)
+        generate_spectrogram(file_path, spectrogram_path)
+
+        # Devolver JSON para el frontend
+        return jsonify({
+            'genre': predicted_label,
+            'confidence': round(confidence, 2),
+            'error': round(error, 2),
+            'spectrogram': spectrogram_filename
+        })
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
     finally:
         if os.path.exists(file_path):
             os.remove(file_path)
+
+
 
 
 if __name__ == '__main__':

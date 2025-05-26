@@ -23,6 +23,8 @@
 
     <div id="resultado" class="mt-4" style="display: none;">
       <h3>Género Predicho: <span id="genero"></span></h3>
+      <h5>Confiabilidad: <span id="confianza" class="text-success"></span></h5>
+      <h5>Error Estimado: <span id="error-prediccion" class="text-danger"></span></h5>
       <h5>Espectrograma:</h5>
       <img id="espectrograma" src="" alt="Espectrograma" class="img-fluid border rounded"/>
     </div>
@@ -47,6 +49,8 @@
 
       if (response.ok) {
         document.getElementById('genero').innerText = result.genre;
+        document.getElementById('confianza').innerText = result.confidence + '%';
+        document.getElementById('error-prediccion').innerText = result.error + '%';
         document.getElementById('espectrograma').src = `/static/spectrograms/${result.spectrogram}`;
         document.getElementById('resultado').style.display = 'block';
         document.getElementById('error').style.display = 'none';
