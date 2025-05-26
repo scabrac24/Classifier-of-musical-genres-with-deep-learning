@@ -1,6 +1,6 @@
 # Clasificador de Género Musical con Deep Learning
 
-Este proyecto permite clasificar géneros musicales a partir de clips de audio de 3 segundos en formato MP3. Utiliza un modelo de red neuronal profunda entrenado con características extraídas del audio mediante `librosa`, y ofrece una interfaz web construida con Flask para que cualquier usuario pueda cargar un archivo y obtener una predicción.
+Este proyecto permite clasificar géneros musicales a partir de clips de audio de 3 segundos en formato MP3. Utiliza un modelo de red neuronal profunda entrenado con características extraídas del audio mediante `librosa`, y ofrece una interfaz web construida con Flask para que cualquier usuario pueda cargar un archivo y obtener una predicción. Para entrenar el modelo se uso el siguiente Dataset extraido de la plataforma Kaggle : https://www.kaggle.com/datasets/sivadithiyan/edm-music-genres , autoria de Sivadithiyan
 
 
 
