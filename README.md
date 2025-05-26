@@ -1,13 +1,13 @@
 # Clasificador de Género Musical con Deep Learning
 
-Este proyecto permite clasificar géneros musicales a partir de clips de audio de 3 segundos en formato MP3. Utiliza un modelo de red neuronal profunda entrenado con características extraídas del audio mediante `librosa`, y ofrece una interfaz web construida con Flask para que cualquier usuario pueda cargar un archivo y obtener una predicción.
+Este proyecto permite clasificar géneros musicales a partir de clips de audio de 3 segundos en formato MP3. Utiliza un modelo de red neuronal profunda entrenado con características extraídas del audio mediante `librosa`, y ofrece una interfaz web construida con Flask para que cualquier usuario pueda cargar un archivo y obtener una predicción. Para entrenar el modelo se uso el siguiente Dataset extraido de la plataforma Kaggle : https://www.kaggle.com/datasets/sivadithiyan/edm-music-genres , autoria de Sivadithiyan
 
 
 
 ## Características
 
 - Carga de archivos MP3 desde una interfaz web sencilla.
-- Recorte automático de los primeros 3 segundos de audio, evitando silencios iniciales para mejorar la precisión.
+- Recorte automático de un fragmento de 3 segundos del archivo MP3 ingresado (este recorte se aplica a los 3 segundos siguientes despues de la espera que se puede modificar en el codigo), evitando silencios iniciales para mejorar la precisión.
 - Extracción de características acústicas con `librosa`.
 - Clasificación del género con un modelo de aprendizaje profundo entrenado con TensorFlow/Keras.
 - Visualización de espectrogramas.
@@ -17,9 +17,9 @@ Este proyecto permite clasificar géneros musicales a partir de clips de audio d
 
 ## Requisitos
 
-Asegúrate de tener Python 3.8 o superior.
+Asegurarse de tener Python 3.8 o superior.
 
-Instala las dependencias ejecutando:
+Instalar las dependencias ejecutando:
 
 pip install -r requirements.txt
 
@@ -45,6 +45,7 @@ Spectral Rolloff
 
 
 ## Red Neuronal utilizada:
+
 
 - Capa densa de 128 unidades con ReLU, regularización L2 y BatchNormalization
 
@@ -90,9 +91,9 @@ Se imprimen Accuracy, Precision y Recall sobre los datos de prueba al correr mod
 
 3) Acceder a la interfaz web en http://127.0.0.1:5000
 
-4) Se permite cargar un archivo MP3 de duración mayor a 3 segundos.
+4) Cargar un archivo MP3 de duración mayor a 3 segundos.
 
-5) El sistema recorta el audio evitando los primeros segundos (para evitar silencios).
+5) El sistema recorta el audio evitando la espera ingresada en el codigo (para evitar silencios).
 
 6) Se extraen características y se normalizan usando el scaler.pkl entrenado.
 
