@@ -8,6 +8,8 @@ import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
 import joblib
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg')  
 import matplotlib.pyplot as plt
 import uuid
 import soundfile as sf 
@@ -33,7 +35,7 @@ scaler = joblib.load("scaler.pkl")
 label_encoder = joblib.load("label_encoder.pkl")
 
 
-def crop_audio_to_3_seconds(file_path, skip_start_sec=5.0):
+def crop_audio_to(file_path, skip_start_sec=80.0):
     y, sr = librosa.load(file_path, sr=None)
     total_samples = len(y)
     total_duration = librosa.get_duration(y=y, sr=sr)
@@ -135,8 +137,8 @@ def predict():
     file.save(file_path)
 
     try:
-        # Recortar a 3 segundos
-        crop_audio_to_3_seconds(file_path)
+        # Recortar el audio
+        crop_audio_to(file_path)
 
         # Extraer características y predecir
         features = extract_features(file_path)
