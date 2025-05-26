@@ -2,7 +2,7 @@
 
 Este proyecto permite clasificar géneros musicales a partir de clips de audio de 3 segundos en formato MP3. Utiliza un modelo de red neuronal profunda entrenado con características extraídas del audio mediante `librosa`, y ofrece una interfaz web construida con Flask para que cualquier usuario pueda cargar un archivo y obtener una predicción.
 
----
+
 
 ## Características
 
@@ -13,7 +13,7 @@ Este proyecto permite clasificar géneros musicales a partir de clips de audio d
 - Visualización de espectrogramas.
 - Mostrar el género predicho junto con el nivel de confianza.
 
----
+
 
 ## Requisitos
 
@@ -42,7 +42,7 @@ Spectral Centroid
 
 Spectral Rolloff
 
----
+
 
 ## Red Neuronal utilizada:
 
@@ -58,7 +58,7 @@ Spectral Rolloff
 
 - Capa de salida Softmax para clasificación multiclase
 
----
+
 
 ## Entrenamiento:
 
@@ -74,7 +74,7 @@ Spectral Rolloff
 
 - Reducción de tasa de aprendizaje después de 20 épocas
 
----
+
 
 ## Evaluación en conjunto de prueba:
 
