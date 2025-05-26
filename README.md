@@ -23,9 +23,10 @@ Instala las dependencias ejecutando:
 
 pip install -r requirements.txt
 
+
 ---
 
-## Detalles del Modelo
+# Detalles del Modelo
 
 El modelo fue entrenado usando características acústicas extraídas de clips de audio de 3 segundos. Las características incluyen:
 
@@ -41,7 +42,9 @@ Spectral Centroid
 
 Spectral Rolloff
 
-# Red Neuronal utilizada:
+---
+
+## Red Neuronal utilizada:
 
 - Capa densa de 128 unidades con ReLU, regularización L2 y BatchNormalization
 
@@ -55,7 +58,9 @@ Spectral Rolloff
 
 - Capa de salida Softmax para clasificación multiclase
 
-# Entrenamiento:
+---
+
+## Entrenamiento:
 
 - Optimizador: Adam con learning rate = 0.0005
 
@@ -69,24 +74,31 @@ Spectral Rolloff
 
 - Reducción de tasa de aprendizaje después de 20 épocas
 
-# Evaluación en conjunto de prueba:
+---
+
+## Evaluación en conjunto de prueba:
 
 Se imprimen Accuracy, Precision y Recall sobre los datos de prueba al correr model.py
 
+---
 
-## Funcionamiento de la Aplicación Web
+# Funcionamiento de la Aplicación Web
 
-1) El usuario accede a la interfaz web en http://127.0.0.1:5000
+1) Acceder a la carpeta Model con cd .\Model\
 
-2) Se permite cargar un archivo MP3 de duración mayor a 3 segundos.
+2) Ejecutar python app.py en la terminal
 
-3) El sistema recorta el audio evitando los primeros segundos (para evitar silencios).
+3) Acceder a la interfaz web en http://127.0.0.1:5000
 
-4) Se extraen características y se normalizan usando el scaler.pkl entrenado.
+4) Se permite cargar un archivo MP3 de duración mayor a 3 segundos.
 
-5) El modelo predice el género y se genera un espectrograma del audio cargado.
+5) El sistema recorta el audio evitando los primeros segundos (para evitar silencios).
 
-6) El resultado mostrado incluye:
+6) Se extraen características y se normalizan usando el scaler.pkl entrenado.
+
+7) El modelo predice el género y se genera un espectrograma del audio cargado.
+
+8) El resultado mostrado incluye:
 
     -  Género musical
 
