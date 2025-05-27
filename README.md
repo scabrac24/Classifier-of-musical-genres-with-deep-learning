@@ -12,6 +12,25 @@ Este proyecto permite clasificar géneros musicales a partir de clips de audio d
 - Clasificación del género con un modelo de aprendizaje profundo entrenado con TensorFlow/Keras.
 - Visualización de espectrogramas.
 - Mostrar el género predicho junto con el nivel de confianza.
+  
+### Los generos que el modelo es capaz de reconocer son:
+
+- Ambient 🌌
+- Big Room House 🏠
+- Drum and Bass 🥁
+- Dubstep 🎵
+- Future Garage/Wave Trap 🌊
+- Hardcore 🔊
+- Hardstyle 💥
+- House 🏡
+- Lo-fi 🎶
+- Moombahton/Reggaeton 🎵🌴
+- Phonk 🔥
+- Psytrance 🌀
+- Synthwave 🎹
+- Techno 🎛️
+- Trance 🚀
+- Trap ⛓️
 
 
 
